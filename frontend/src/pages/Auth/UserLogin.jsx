@@ -1,29 +1,34 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import '../../styles/auth.css'
+import '../../styles/AuthForm.css'
 
 const UserLogin = () => {
   return (
-    <div className="auth-container">
-      <div className="auth-card">
-        <div className="auth-header">
-          <h2>User Login</h2>
-          <p>Welcome back! Please login to your account.</p>
+    <div className='auth-page'>
+      <div className='auth-card'>
+        <div className='auth-header'>
+          <h1 className='auth-title'>Welcome back</h1>
+          <p className='auth-subtitle'>Sign in to continue as user</p>
         </div>
-        <form className="auth-form">
-          <div className="form-group">
-            <label htmlFor="email">Email Address</label>
-            <input type="email" id="email" placeholder="Enter your email" required />
+
+        <form className='auth-form'>
+          <div className='form-group'>
+            <label className='label'>Email</label>
+            <input className='input' type='email' placeholder='you@example.com' />
           </div>
-          <div className="form-group">
-            <label htmlFor="password">Password</label>
-            <input type="password" id="password" placeholder="Enter your password" required />
+          <div className='form-group'>
+            <label className='label'>Password</label>
+            <input className='input' type='password' placeholder='••••••••' />
           </div>
-          <button type="submit" className="auth-btn">Login</button>
+
+          <div className='actions'>
+            <button className='button' type='button'>Sign in</button>
+            <Link className='button secondary' to='/user/register'>New here? Create account</Link>
+          </div>
         </form>
-        <div className="auth-footer">
-          <p>Don't have an account? <Link to="/user/register">Sign up</Link></p>
-          <p style={{ marginTop: '0.5rem' }}>Are you a restaurant? <Link to="/partner/login">Partner Login</Link></p>
+
+        <div className='auth-footer'>
+          <span>Are you a partner?</span> <Link className='link' to='/food-partner/login'>sign in as food partner</Link>
         </div>
       </div>
     </div>
