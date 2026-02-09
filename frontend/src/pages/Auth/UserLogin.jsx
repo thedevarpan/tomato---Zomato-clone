@@ -1,8 +1,20 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../../styles/AuthForm.css'
+import axios from 'axios'
 
 const UserLogin = () => {
+  const navigate = useNavigate();
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    await axios.post("http://localhost:3000/api/auth/user/login", {
+      email, password
+    }, { withCredentials: true });
+    navigate("/");
+  }
   return (
     <div className='auth-page'>
       <div className='auth-card'>
@@ -11,18 +23,18 @@ const UserLogin = () => {
           <p className='auth-subtitle'>Sign in to continue as user</p>
         </div>
 
-        <form className='auth-form'>
+        <form onSubmit={submitHandler} className='auth-form'>
           <div className='form-group'>
             <label className='label'>Email</label>
-            <input className='input' type='email' placeholder='you@example.com' />
+            <input className='input' name='email' type='email' placeholder='you@example.com' />
           </div>
           <div className='form-group'>
             <label className='label'>Password</label>
-            <input className='input' type='password' placeholder='••••••••' />
+            <input className='input' name='password' type='password' placeholder='••••••••' />
           </div>
 
           <div className='actions'>
-            <button className='button' type='button'>Sign in</button>
+            <button className='button' type='submit'>Sign in</button>
             <Link className='button secondary' to='/user/register'>New here? Create account</Link>
           </div>
         </form>

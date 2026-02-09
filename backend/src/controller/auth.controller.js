@@ -117,7 +117,7 @@ const registerFoodPartner = async (req, res) => {
     res.cookie("token", token);
 
     res.status(201).json({
-        message: "Food partner cretaed successfully.",
+        message: "Food partner created successfully.",
         foodPartner: {
             _id: foodPartner._id,
             email: foodPartner.email,

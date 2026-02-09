@@ -1,8 +1,27 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import '../../styles/AuthForm.css'
+import axios from 'axios'
 
 const UserRegister = () => {
+  const navigate = useNavigate();
+
+  const submitHandler = async (e) => {
+    e.preventDefault();
+    console.log("first")
+    const fname = e.target.fname.value;
+    const lname = e.target.lname.value;
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+
+    await axios.post("http://localhost:3000/api/auth/user/register", {
+      fullname: `${fname} ${lname}`,
+      email,
+      password,
+    }, { withCredentials: true });
+    navigate("/");
+  }
+
   return (
     <div className='auth-page'>
       <div className='auth-card'>
@@ -11,30 +30,31 @@ const UserRegister = () => {
           <p className='auth-subtitle'>Join as a user to explore and order</p>
         </div>
 
-        <form className='auth-form'>
-          <div className='form-group'>
-            <label className='label'>Full name</label>
-            <input className='input' type='text' placeholder='John Doe' />
+        <form onSubmit={submitHandler} className='auth-form'>
+
+          <div className='row'>
+            <div className='form-group'>
+              <label className='label'>First name</label>
+              <input className='input' name='fname' type='text' placeholder='John' />
+            </div>
+            <div className='form-group'>
+              <label className='label'>Last name</label>
+              <input className='input' name='lname' type='text' placeholder='Doe' />
+            </div>
           </div>
 
           <div className='form-group'>
             <label className='label'>Email</label>
-            <input className='input' type='email' placeholder='you@example.com' />
+            <input className='input' name='email' type='email' placeholder='you@example.com' />
           </div>
 
-          <div className='row'>
-            <div className='form-group'>
-              <label className='label'>Password</label>
-              <input className='input' type='password' placeholder='••••••••' />
-            </div>
-            <div className='form-group'>
-              <label className='label'>Confirm</label>
-              <input className='input' type='password' placeholder='••••••••' />
-            </div>
+          <div className='form-group'>
+            <label className='label'>Password</label>
+            <input className='input' name='password' type='password' placeholder='••••••••' />
           </div>
 
           <div className='actions'>
-            <button className='button' type='button'>Create account</button>
+            <button className='button' type='submit'>Create account</button>
             <Link className='button secondary' to='/user/login'>Already have an account? Sign in</Link>
           </div>
         </form>
